@@ -65,19 +65,39 @@ struct ContentView: View {
     }
     
     private var fruitView: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text("Fruits")
             ScrollView(.horizontal) {
                 ForEach(pantryManager.listFruits) { fruit in
-                    VStack(spacing: 20) {
+                    VStack(spacing: 8) {
                         Text(String(fruit.name))
                         AsyncImage(url: URL(string: fruit.image), scale: 5)
-                        Text("Stock: " + String(fruit.stock))
+                        HStack(spacing: 10) {
+                            Text("Stock: " + String(fruit.stock))
+                            Spacer()
+                                .frame(width: 4)
+                            Button(action: {
+                                if fruit.added == false {
+                                    fruit.quantity = 1
+                                    fruit.stock -= 1
+                                    pantryManager.cartItems.append(fruit)
+                                } else {
+                                    fruit.quantity = 0
+                                    fruit.stock += 1
+                                    pantryManager.cartItems.removeAll(where: { $0.name == fruit.name })
+                                }
+                                fruit.added = !(fruit.added)
+                            }) {
+                                Image(systemName: "plus.circle")
+                            }
+                            .foregroundColor(fruit.added ? .gray : .blue)
+                            .background(fruit.added ? Color.gray.opacity(0.3) : .clear)
+                        }
                     }
-                    .padding()
+                    .padding(6)
                     .border(.gray, width: 1)
                     .background(Color.white)
-                    .padding()
+                    .padding(8)
                 }
                 .padding(.top, 5)
             }
@@ -85,7 +105,7 @@ struct ContentView: View {
     }
     
     private var vegView: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text("Vegetables")
             ScrollView(.horizontal) {
                 ForEach(pantryManager.listVeg) { veg in
@@ -111,15 +131,10 @@ struct ContentView: View {
                                 Image(systemName: "plus.circle")
                             }
                             .foregroundColor(veg.added ? .gray : .blue)
-                            .background(veg.added ? Color.gray.opacity(0.7) : .clear)
+                            .background(veg.added ? Color.gray.opacity(0.3) : .clear)
                         }
-//                        Button(systemImage: "calendar.badge.clock", action: {
-//                            veg.quantity = 1
-//                            pantryManager.cartItems.append(veg)
-//                        })
-                        // .contentShape(RoundedRectangle())
                     }
-                    .padding(8)
+                    .padding(6)
                     .border(.gray, width: 1)
                     .background(Color.white)
                     .padding(8)
@@ -130,18 +145,39 @@ struct ContentView: View {
     }
     
     private var canView: some View {
-        VStack {
-            Text("Cans")
+        VStack(alignment: .leading) {
+            Text("Canned/Bagged Foods")
             ScrollView(.horizontal) {
                 ForEach(pantryManager.listCans) { can in
-                    VStack(spacing: 20) {
+                    VStack(spacing: 8) {
                         Text(String(can.name))
                         AsyncImage(url: URL(string: can.image), scale: 5)
-                        Text("Stock: " + String(can.stock))
+                        HStack(spacing: 10) {
+                            Text("Stock: " + String(can.stock))
+                            Spacer()
+                                .frame(width: 4)
+                            Button(action: {
+                                if can.added == false {
+                                    can.quantity = 1
+                                    can.stock -= 1
+                                    pantryManager.cartItems.append(can)
+                                } else {
+                                    can.quantity = 0
+                                    can.stock += 1
+                                    pantryManager.cartItems.removeAll(where: { $0.name == can.name })
+                                }
+                                can.added = !(can.added)
+                            }) {
+                                Image(systemName: "plus.circle")
+                            }
+                            .foregroundColor(can.added ? .gray : .blue)
+                            .background(can.added ? Color.gray.opacity(0.3) : .clear)
+                        }
                     }
-                    .padding()
+                    .padding(6)
                     .border(.gray, width: 1)
-                    .padding()
+                    .background(Color.white)
+                    .padding(8)
                 }
                 .padding(.top, 5)
             }
@@ -149,18 +185,39 @@ struct ContentView: View {
     }
     
     private var dairyView: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text("Dairy")
             ScrollView(.horizontal) {
                 ForEach(pantryManager.listDairy) { dairy in
-                    VStack(spacing: 20) {
+                    VStack(spacing: 8) {
                         Text(String(dairy.name))
                         AsyncImage(url: URL(string: dairy.image), scale: 5)
-                        Text("Stock: " + String(dairy.stock))
+                        HStack(spacing: 10) {
+                            Text("Stock: " + String(dairy.stock))
+                            Spacer()
+                                .frame(width: 4)
+                            Button(action: {
+                                if dairy.added == false {
+                                    dairy.quantity = 1
+                                    dairy.stock -= 1
+                                    pantryManager.cartItems.append(dairy)
+                                } else {
+                                    dairy.quantity = 0
+                                    dairy.stock += 1
+                                    pantryManager.cartItems.removeAll(where: { $0.name == dairy.name })
+                                }
+                                dairy.added = !(dairy.added)
+                            }) {
+                                Image(systemName: "plus.circle")
+                            }
+                            .foregroundColor(dairy.added ? .gray : .blue)
+                            .background(dairy.added ? Color.gray.opacity(0.3) : .clear)
+                        }
                     }
-                    .padding()
+                    .padding(6)
                     .border(.gray, width: 1)
-                    .padding()
+                    .background(Color.white)
+                    .padding(8)
                 }
                 .padding(.top, 5)
             }
@@ -168,18 +225,39 @@ struct ContentView: View {
     }
     
     private var otherView: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text("Other")
             ScrollView(.horizontal) {
                 ForEach(pantryManager.listOther) { other in
-                    VStack(spacing: 20) {
+                    VStack(spacing: 8) {
                         Text(String(other.name))
                         AsyncImage(url: URL(string: other.image), scale: 5)
-                        Text("Stock: " + String(other.stock))
+                        HStack(spacing: 10) {
+                            Text("Stock: " + String(other.stock))
+                            Spacer()
+                                .frame(width: 4)
+                            Button(action: {
+                                if other.added == false {
+                                    other.quantity = 1
+                                    other.stock -= 1
+                                    pantryManager.cartItems.append(other)
+                                } else {
+                                    other.quantity = 0
+                                    other.stock += 1
+                                    pantryManager.cartItems.removeAll(where: { $0.name == other.name })
+                                }
+                                other.added = !(other.added)
+                            }) {
+                                Image(systemName: "plus.circle")
+                            }
+                            .foregroundColor(other.added ? .gray : .blue)
+                            .background(other.added ? Color.gray.opacity(0.3) : .clear)
+                        }
                     }
-                    .padding()
+                    .padding(6)
                     .border(.gray, width: 1)
-                    .padding()
+                    .background(Color.white)
+                    .padding(8)
                 }
                 .padding(.top, 5)
             }
