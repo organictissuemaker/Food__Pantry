@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct CartItemListView: View{
-    var itemManager: PantryManager
+    @State private var pantryManager = PantryManager()
     
     var body: some View{
         VStack{
             headerView
-            List(itemManager.cartItems){
+            List(pantryManager.cartItems, id: \.id){
                 item in
-                    CartItemView(cartItems: FoodItem)
+                CartItemView(cartItem: item)
             }
         }
     }
@@ -32,8 +32,9 @@ struct CartItemListView: View{
     }
 }
 
+@Observable
 struct CartItemView: some View{
-    var cartItem: Item
+    var cartItem: FoodItem
     
     var body: some View{
         RoundedRectangle(cornerRadius: 10)
@@ -81,18 +82,18 @@ struct CartItemView: some View{
                         .bold()
                     Spacer()
                     Button(action:{
-                        cartItem.quantity += 1
-                    }){
-                        Image(systemName:
-                                "plus.square.fill"
-                            .font(.system(size: 25))
-                        )
-                    }
-                    Button(action:{
                         cartItem.quantity -= 1
                     }){
                         Image(systemName:
                                 "minus.square.fill"
+                            .font(.system(size: 25))
+                        )
+                    }
+                    Button(action:{
+                        cartItem.quantity += 1
+                    }){
+                        Image(systemName:
+                                "plus.square.fill"
                             .font(.system(size: 25))
                         )
                     }
