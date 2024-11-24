@@ -22,6 +22,7 @@ import SwiftUI
     var stock: Int
     var quantity: Int
     var image: String
+    var added: Bool
     
     init(id: UUID = UUID(), name: String, stock: Int, image: String, type: foodCategory) {
         self.id = id
@@ -30,5 +31,6 @@ import SwiftUI
         self.quantity = 0
         self.image = image
         self.type = type
+        self.added = false
     }
 }

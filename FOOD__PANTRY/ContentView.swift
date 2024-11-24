@@ -97,11 +97,21 @@ struct ContentView: View {
                             Spacer()
                                 .frame(width: 4)
                             Button(action: {
-                                veg.quantity = 1
-                                pantryManager.cartItems.append(veg)
+                                if veg.added == false {
+                                    veg.quantity = 1
+                                    veg.stock -= 1
+                                    pantryManager.cartItems.append(veg)
+                                } else {
+                                    veg.quantity = 0
+                                    veg.stock += 1
+                                    pantryManager.cartItems.removeAll(where: { $0.name == veg.name })
+                                }
+                                veg.added = !(veg.added)
                             }) {
-                                Label("", systemImage: "plus.circle")
+                                Image(systemName: "plus.circle")
                             }
+                            .foregroundColor(veg.added ? .gray : .blue)
+                            .background(veg.added ? Color.gray.opacity(0.7) : .clear)
                         }
 //                        Button(systemImage: "calendar.badge.clock", action: {
 //                            veg.quantity = 1
