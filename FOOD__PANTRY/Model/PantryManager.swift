@@ -9,7 +9,7 @@ import SwiftUI
 
 @Observable class PantryManager {
     var pantryItems: [FoodItem] = [FoodItem(name: "Broccoli", stock: 3, image: "https://www.shutterstock.com/image-photo/macro-photo-green-fresh-vegetable-600nw-2497091485.jpg", type: FoodItem.foodCategory.veg)]
-    var listFruits: [FoodItem]
+    var listFruits: [FoodItem] = [FoodItem(name: "strawberry", stock: 3, image: "https://www.shutterstock.com/image-photo/red-berry-strawberry-isolated-on-600nw-1110029372.jpg", type: FoodItem.foodCategory.veg)]
     var listVeg: [FoodItem]
     var listDairy: [FoodItem]
     var listCans: [FoodItem]
