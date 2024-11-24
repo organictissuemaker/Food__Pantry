@@ -20,7 +20,11 @@ struct CartItemListView: View{
         }
         .background(Color.blue.opacity(0.7))
     }
+<<<<<<< HEAD
         
+=======
+     .background(Color.blue.opacity(0.7))
+>>>>>>> 4c8d58fb1780340a99563b5bd9e9309071c47f6d
     
     private var headerView: some View{
         HStack{

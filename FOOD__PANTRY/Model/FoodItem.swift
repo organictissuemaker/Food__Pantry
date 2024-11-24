@@ -5,6 +5,7 @@
 //  Created by Karen M on 11/21/24.
 //
 import Foundation
+import SwiftUI
 
 @Observable class FoodItem: Identifiable {
     enum foodCategory {

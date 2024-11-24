@@ -33,20 +33,27 @@ struct ContentView: View {
                     AsyncImage(url: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL-ddiqd6BE9ryy8NbtvGVsVVjLNZXx-Nnqw&s"), scale: 2.3)
                     Spacer()
                 }
+                VStack(spacing: 10) {
+                    fruitView
+                    vegView
+                    dairyView
+                    canView
+                    otherView
+                }
                 // VStack all 4 views (horizontal scroll)
                 // fruitVegView(pantryManager.listFruitVeg)
                 // dairyView(pantryManager.listDairy)
                 // cansView(pantryManager.listCans)
                 // frozenView(pantryManager.listFrozen)
-                Spacer()
-                Text("  fruitView")
-                Spacer()
-                Text("  vegView")
-                Spacer()
-                Text("  cansView")
-                Spacer()
-                Text("  dairyView")
-                Spacer()
+//                Spacer()
+//                Text("  fruitView")
+//                Spacer()
+//                Text("  vegView")
+//                Spacer()
+//                Text("  cansView")
+//                Spacer()
+//                Text("  dairyView")
+//                Spacer()
                 //            HStack(spacing: 30) {
                 //                Spacer()
                 //                Text(".homeButton")
@@ -60,23 +67,92 @@ struct ContentView: View {
                 //                // pantryManager.cartButton
                 //                // pantryManager.pickupButton
                 //            }
-                
-                NavigationLink(destination: PickUpView(), label: {
-                    Text("Pickup View")
-                })
-//                }) {
-//                    Button(action: {} ) {
-//                        Image(systemName: "chevron.right.circle.fill")
-//                            .font(.system(size: 40))
-//                        // Button design
-//                    }
+                HStack(spacing: 30) {
+                    Text("Home")
+                    NavigationLink(destination: CartItemListView(), label: {
+                        Text("Shopping Cart")
+                    })
+                    NavigationLink(destination: PickUpView(), label: {
+                        Text("Schedule Pickup")
+                    })
+                    //                }) {
+                    //                    Button(action: {} ) {
+                    //                        Image(systemName: "chevron.right.circle.fill")
+                    //                            .font(.system(size: 40))
+                    //                        // Button design
+                    //                    }
                 }
+            }
                 Spacer()
             }
             .background(Color.blue.opacity(0.7))
         }
-        
+    
+    private var fruitView: some View {
+        ScrollView(.horizontal) {
+            ForEach(pantryManager.listFruits) { fruit in
+                VStack(spacing: 20) {
+                    Text(String(fruit.name))
+                    AsyncImage(url: URL(string: fruit.image), scale: 5)
+                    Text("Stock: " + String(fruit.stock))
+                                    }
+            }
+            .padding(.top, 40)
+        }
     }
+    
+    private var vegView: some View {
+        ScrollView(.horizontal) {
+            ForEach(pantryManager.listVeg) { veg in
+                VStack(spacing: 20) {
+                    Text(String(veg.name))
+                    AsyncImage(url: URL(string: veg.image), scale: 5)
+                    Text("Stock: " + String(veg.stock))
+                                    }
+            }
+            .padding(.top, 40)
+        }
+    }
+    
+    private var canView: some View {
+        ScrollView(.horizontal) {
+            ForEach(pantryManager.listCans) { can in
+                VStack(spacing: 20) {
+                    Text(String(can.name))
+                    AsyncImage(url: URL(string: can.image), scale: 5)
+                    Text("Stock: " + String(can.stock))
+                                    }
+            }
+            .padding(.top, 40)
+        }
+    }
+    
+    private var dairyView: some View {
+        ScrollView(.horizontal) {
+            ForEach(pantryManager.listDairy) { dairy in
+                VStack(spacing: 20) {
+                    Text(String(dairy.name))
+                    AsyncImage(url: URL(string: dairy.image), scale: 5)
+                    Text("Stock: " + String(dairy.stock))
+                                    }
+            }
+            .padding(.top, 40)
+        }
+    }
+    
+    private var otherView: some View {
+        ScrollView(.horizontal) {
+            ForEach(pantryManager.listOther) { other in
+                VStack(spacing: 20) {
+                    Text(String(other.name))
+                    AsyncImage(url: URL(string: other.image), scale: 5)
+                    Text("Stock: " + String(other.stock))
+                                    }
+            }
+            .padding(.top, 40)
+        }
+    }
+}
 //    @Environment(\.modelContext) private var modelContext
 //    @Query private var items: [Item]
 //
