@@ -19,7 +19,7 @@ struct CartItemListView: View{
             }
         }
     }
-    .background(Color.blue.opacity(0.7))
+     .background(Color.blue.opacity(0.7))
     
     private var headerView: some View{
         HStack{
