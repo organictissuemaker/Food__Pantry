@@ -43,6 +43,7 @@ struct PickUpView: View {
             }
             .padding(10)
             .background(Color.blue.opacity(0.7))
+            
             TabView {
                 // First Tab: Current Practice View
                 VerifyInformationView(firstName: $firstName, lastName: $lastName, studentID: $studentID)
@@ -90,7 +91,7 @@ struct VerifyInformationView: View {
 
                 TextField("Cal Student ID e.g. 3031234567", text: $studentID)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .keyboardType(.numberPad)
+                    //.keyboardType(.numberPad)
             }
             .padding()
 
