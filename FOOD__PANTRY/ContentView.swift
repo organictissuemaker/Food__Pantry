@@ -15,6 +15,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 30) {
+                Spacer()
                 HStack(spacing: 30) {
                     Spacer()
                     VStack(spacing: 3) {
@@ -22,7 +23,7 @@ struct ContentView: View {
                             .font(.system(size: 35))
                             .foregroundColor(.black)
                             .bold()
-                        // .italic()
+                            .italic()
                         Text("Pantry")
                             .font(.system(size: 35))
                             .foregroundColor(.black)
@@ -33,123 +34,135 @@ struct ContentView: View {
                     AsyncImage(url: URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL-ddiqd6BE9ryy8NbtvGVsVVjLNZXx-Nnqw&s"), scale: 2.3)
                     Spacer()
                 }
-                VStack(spacing: 10) {
+                List {
                     fruitView
                     vegView
                     dairyView
                     canView
                     otherView
                 }
-                // VStack all 4 views (horizontal scroll)
-                // fruitVegView(pantryManager.listFruitVeg)
-                // dairyView(pantryManager.listDairy)
-                // cansView(pantryManager.listCans)
-                // frozenView(pantryManager.listFrozen)
-//                Spacer()
-//                Text("  fruitView")
-//                Spacer()
-//                Text("  vegView")
-//                Spacer()
-//                Text("  cansView")
-//                Spacer()
-//                Text("  dairyView")
-//                Spacer()
-                //            HStack(spacing: 30) {
-                //                Spacer()
-                //                Text(".homeButton")
-                //                Spacer()
-                //                Text(".cartButton")
-                //                Spacer()
-                //                Text(".pickupButton")
-                //                Spacer()
-                //                // 3 buttons, define buttons (view) in manager
-                //                // pantryManager.homeButton
-                //                // pantryManager.cartButton
-                //                // pantryManager.pickupButton
-                //            }
-                HStack(spacing: 30) {
-                    Text("Home")
-                    NavigationLink(destination: CartItemListView(), label: {
-                        Text("Shopping Cart")
-                    })
-                    NavigationLink(destination: PickUpView(), label: {
-                        Text("Schedule Pickup")
-                    })
-                    //                }) {
-                    //                    Button(action: {} ) {
-                    //                        Image(systemName: "chevron.right.circle.fill")
-                    //                            .font(.system(size: 40))
-                    //                        // Button design
-                    //                    }
+                VStack {
+                    HStack(spacing: 60) {
+                        HStack {
+                            Image(systemName: "house.fill").foregroundColor(Color(red: 0.1, green: 0.2, blue: 1.0))
+                            Text("Home").foregroundColor(Color(red: 0.1, green: 0.2, blue: 1.0))
+                        }
+                        NavigationLink(destination: CartItemListView(), label: {
+                            Label("Cart", systemImage: "cart.fill")})
+                        NavigationLink(destination: PickUpView(), label: {
+                            Label("Pickup", systemImage: "calendar.badge.clock")
+                        })
+                    }
+                    
                 }
+                .padding(30)
+                .background(.yellow)
+                
             }
-                Spacer()
-            }
-            .background(Color.blue.opacity(0.7))
+            .background(Color.blue.opacity(0.8))
         }
+        .accentColor(Color(red: 0.1, green: 0.2, blue: 1.0))
+    }
     
     private var fruitView: some View {
-        ScrollView(.horizontal) {
-            ForEach(pantryManager.listFruits) { fruit in
-                VStack(spacing: 20) {
-                    Text(String(fruit.name))
-                    AsyncImage(url: URL(string: fruit.image), scale: 5)
-                    Text("Stock: " + String(fruit.stock))
-                                    }
+        VStack {
+            Text("Fruits")
+            ScrollView(.horizontal) {
+                ForEach(pantryManager.listFruits) { fruit in
+                    VStack(spacing: 20) {
+                        Text(String(fruit.name))
+                        AsyncImage(url: URL(string: fruit.image), scale: 5)
+                        Text("Stock: " + String(fruit.stock))
+                    }
+                    .padding()
+                    .border(.gray, width: 1)
+                    .background(Color.white)
+                    .padding()
+                }
+                .padding(.top, 5)
             }
-            .padding(.top, 40)
         }
     }
     
     private var vegView: some View {
-        ScrollView(.horizontal) {
-            ForEach(pantryManager.listVeg) { veg in
-                VStack(spacing: 20) {
-                    Text(String(veg.name))
-                    AsyncImage(url: URL(string: veg.image), scale: 5)
-                    Text("Stock: " + String(veg.stock))
-                                    }
+        VStack {
+            Text("Vegetables")
+            ScrollView(.horizontal) {
+                ForEach(pantryManager.listVeg) { veg in
+                    VStack(spacing: 20) {
+                        Text(String(veg.name))
+                        AsyncImage(url: URL(string: veg.image), scale: 5)
+                        Text("Stock: " + String(veg.stock))
+//                        Button(systemImage: "calendar.badge.clock", action: {
+//                            veg.quantity = 1
+//                            pantryManager.cartItems.append(veg)
+//                        })
+                        // .contentShape(RoundedRectangle())
+                    }
+                    .padding(8)
+                    .border(.gray, width: 1)
+                    .background(Color.white)
+                    .padding(8)
+                }
+                .padding(.top, 5)
             }
-            .padding(.top, 40)
         }
     }
     
     private var canView: some View {
-        ScrollView(.horizontal) {
-            ForEach(pantryManager.listCans) { can in
-                VStack(spacing: 20) {
-                    Text(String(can.name))
-                    AsyncImage(url: URL(string: can.image), scale: 5)
-                    Text("Stock: " + String(can.stock))
-                                    }
+        VStack {
+            Text("Cans")
+            ScrollView(.horizontal) {
+                ForEach(pantryManager.listCans) { can in
+                    VStack(spacing: 20) {
+                        Text(String(can.name))
+                        AsyncImage(url: URL(string: can.image), scale: 5)
+                        Text("Stock: " + String(can.stock))
+                    }
+                    .padding()
+                    .border(.gray, width: 1)
+                    .padding()
+                }
+                .padding(.top, 5)
             }
-            .padding(.top, 40)
         }
     }
     
     private var dairyView: some View {
-        ScrollView(.horizontal) {
-            ForEach(pantryManager.listDairy) { dairy in
-                VStack(spacing: 20) {
-                    Text(String(dairy.name))
-                    AsyncImage(url: URL(string: dairy.image), scale: 5)
-                    Text("Stock: " + String(dairy.stock))
-                                    }
+        VStack {
+            Text("Dairy")
+            ScrollView(.horizontal) {
+                ForEach(pantryManager.listDairy) { dairy in
+                    VStack(spacing: 20) {
+                        Text(String(dairy.name))
+                        AsyncImage(url: URL(string: dairy.image), scale: 5)
+                        Text("Stock: " + String(dairy.stock))
+                    }
+                    .padding()
+                    .border(.gray, width: 1)
+                    .padding()
+                }
+                .padding(.top, 5)
             }
-            .padding(.top, 40)
         }
     }
     
     private var otherView: some View {
-        ScrollView(.horizontal) {
-            ForEach(pantryManager.listOther) { other in
-                VStack(spacing: 20) {
-                    Text(String(other.name))
-                    AsyncImage(url: URL(string: other.image), scale: 5)
-                    Text("Stock: " + String(other.stock))
-                                    }
+        VStack {
+            Text("Other")
+            ScrollView(.horizontal) {
+                ForEach(pantryManager.listOther) { other in
+                    VStack(spacing: 20) {
+                        Text(String(other.name))
+                        AsyncImage(url: URL(string: other.image), scale: 5)
+                        Text("Stock: " + String(other.stock))
+                    }
+                    .padding()
+                    .border(.gray, width: 1)
+                    .padding()
+                }
+                .padding(.top, 5)
             }
-            .padding(.top, 40)
         }
     }
 }

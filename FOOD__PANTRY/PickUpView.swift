@@ -8,6 +8,7 @@
 // hihi this is karen commenting
 import SwiftUI
 
+
 struct PickUpView: View {
     @State var selectedDate: Date = Date()
     @State private var firstName = ""
@@ -64,6 +65,7 @@ struct PickUpView: View {
                         Text("Pickup")
                     }
             }
+            Spacer()
         }
 }
 
