@@ -71,7 +71,12 @@ struct ContentView: View {
                 ForEach(pantryManager.listFruits) { fruit in
                     VStack(spacing: 8) {
                         Text(String(fruit.name))
-                        AsyncImage(url: URL(string: fruit.image), scale: 5)
+                        AsyncImage(url: URL(string: fruit.image)){ result in
+                                    result.image?
+                                        .resizable()
+                                        .scaledToFill()
+                                }
+                                .frame(width: 100, height: 100)
                         HStack(spacing: 10) {
                             Text("Stock: " + String(fruit.stock))
                             Spacer()
@@ -111,7 +116,12 @@ struct ContentView: View {
                 ForEach(pantryManager.listVeg) { veg in
                     VStack(spacing: 8) {
                         Text(String(veg.name))
-                        AsyncImage(url: URL(string: veg.image), scale: 5)
+                        AsyncImage(url: URL(string: veg.image)){ result in
+                                    result.image?
+                                        .resizable()
+                                        .scaledToFill()
+                                }
+                                .frame(width: 100, height: 100)
                         HStack(spacing: 10) {
                             Text("Stock: " + String(veg.stock))
                             Spacer()
@@ -151,7 +161,12 @@ struct ContentView: View {
                 ForEach(pantryManager.listCans) { can in
                     VStack(spacing: 8) {
                         Text(String(can.name))
-                        AsyncImage(url: URL(string: can.image), scale: 5)
+                        AsyncImage(url: URL(string: can.image)){ result in
+                                    result.image?
+                                        .resizable()
+                                        .scaledToFill()
+                                }
+                                .frame(width: 100, height: 100)
                         HStack(spacing: 10) {
                             Text("Stock: " + String(can.stock))
                             Spacer()
@@ -191,7 +206,12 @@ struct ContentView: View {
                 ForEach(pantryManager.listDairy) { dairy in
                     VStack(spacing: 8) {
                         Text(String(dairy.name))
-                        AsyncImage(url: URL(string: dairy.image), scale: 5)
+                        AsyncImage(url: URL(string: dairy.image)){ result in
+                                    result.image?
+                                        .resizable()
+                                        .scaledToFill()
+                                }
+                                .frame(width: 100, height: 100)
                         HStack(spacing: 10) {
                             Text("Stock: " + String(dairy.stock))
                             Spacer()
