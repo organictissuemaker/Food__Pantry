@@ -18,8 +18,9 @@ struct CartItemListView: View{
                 CartItemView(cartItem: item)
             }
         }
+        .background(Color.blue.opacity(0.7))
     }
-    .background(Color.blue.opacity(0.7))
+        
     
     private var headerView: some View{
         HStack{
@@ -30,4 +31,8 @@ struct CartItemListView: View{
         }
         .padding()
     }
+}
+
+#Preview {
+    CartItemListView()
 }

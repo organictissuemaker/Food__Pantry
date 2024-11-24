@@ -11,13 +11,14 @@ struct CartItemView: View{
     
     var body: some View{
         RoundedRectangle(cornerRadius: 10)
-            .fill(Color.gray)
+            .fill(Color.gray.opacity(0.5))
             .overlay(
                 VStack{
                     HStack{
                         imageSection
                         Spacer()
                         nameSection
+                        Spacer()
                     }
                     .padding()
                     quantitySection
@@ -25,13 +26,22 @@ struct CartItemView: View{
                     .padding()
             )
             .frame(height: 200)
+            .padding()
     }
     
     private var imageSection: some View{
         Circle()
-            .fill(Color.gray)
+            .fill(Color.gray.opacity(0.7))
             .overlay(
-                cartItem.image
+                AsyncImage(url: URL(string: cartItem.image)){
+                    image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                } placeholder: {
+                    Color.gray
+                }
+                    .frame(width: 70, height: 70)
             )
             .frame(height: 100)
     }
@@ -39,15 +49,17 @@ struct CartItemView: View{
     private var nameSection: some View{
         Text(cartItem.name)
             .bold()
-            .font(.title2)
+            .font(.title)
+            .foregroundStyle(Color.blue.opacity(0.7))
     }
     
     private var quantitySection: some View{
-        Rectangle()
-            .fill(Color.white)
+        RoundedRectangle(cornerRadius: 10)
+            .fill(Color.gray.opacity(0.7))
             .stroke(.black, lineWidth: 2)
             .overlay(
                 HStack{
+                    Spacer()
                     Text("Quantity: ")
                         .bold()
                         .font(.body)
@@ -55,21 +67,35 @@ struct CartItemView: View{
                         .bold()
                     Spacer()
                     Button(action:{
-                        cartItem.quantity -= 1
+                        if (cartItem.quantity != 0){
+                            cartItem.quantity -= 1
+                            cartItem.stock += 1
+                        }
+                        else{
+                            
+                        }
                     }){
                         Image(systemName:
                                 "minus.square.fill"
                         ).font(.system(size: 25))
+                            .opacity(0.7)
                     }
                     Button(action:{
-                        cartItem.quantity += 1
+                        if (cartItem.stock != 0){
+                            cartItem.quantity += 1
+                            cartItem.stock -= 1
+                        }
                     }){
                         Image(systemName:
                                 "plus.square.fill"
                         ).font(.system(size: 25))
+                            .opacity(0.7)
                     }
                 }
             )
     }
 }
 
+#Preview {
+    CartItemView(cartItem: FoodItem(name: "Broccoli", stock: 3, image: "https://www.shutterstock.com/image-photo/macro-photo-green-fresh-vegetable-600nw-2497091485.jpg", type: FoodItem.foodCategory.veg))
+}
