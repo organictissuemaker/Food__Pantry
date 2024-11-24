@@ -89,10 +89,20 @@ struct ContentView: View {
             Text("Vegetables")
             ScrollView(.horizontal) {
                 ForEach(pantryManager.listVeg) { veg in
-                    VStack(spacing: 20) {
+                    VStack(spacing: 8) {
                         Text(String(veg.name))
                         AsyncImage(url: URL(string: veg.image), scale: 5)
-                        Text("Stock: " + String(veg.stock))
+                        HStack(spacing: 10) {
+                            Text("Stock: " + String(veg.stock))
+                            Spacer()
+                                .frame(width: 4)
+                            Button(action: {
+                                veg.quantity = 1
+                                pantryManager.cartItems.append(veg)
+                            }) {
+                                Label("", systemImage: "plus.circle")
+                            }
+                        }
 //                        Button(systemImage: "calendar.badge.clock", action: {
 //                            veg.quantity = 1
 //                            pantryManager.cartItems.append(veg)
