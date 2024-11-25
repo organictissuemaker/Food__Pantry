@@ -71,9 +71,6 @@ struct CartItemView: View{
                             cartItem.quantity -= 1
                             cartItem.stock += 1
                         }
-                        else{
-                            
-                        }
                     }){
                         Image(systemName:
                                 "minus.square.fill"

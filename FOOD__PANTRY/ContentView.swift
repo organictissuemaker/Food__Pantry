@@ -47,7 +47,7 @@ struct ContentView: View {
                             Image(systemName: "house.fill").foregroundColor(Color(red: 0.1, green: 0.2, blue: 1.0))
                             Text("Home").foregroundColor(Color(red: 0.1, green: 0.2, blue: 1.0))
                         }
-                        NavigationLink(destination: CartItemListView(), label: {
+                        NavigationLink(destination: CartItemListView(pantryManager: pantryManager), label: {
                             Label("Cart", systemImage: "cart.fill")})
                         NavigationLink(destination: PickUpView(), label: {
                             Label("Pickup", systemImage: "calendar.badge.clock")

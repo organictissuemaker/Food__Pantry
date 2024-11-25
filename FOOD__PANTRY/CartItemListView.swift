@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CartItemListView: View{
-    @State private var pantryManager = PantryManager()
+    @State var pantryManager : PantryManager
     
     var body: some View{
         VStack{
@@ -33,5 +33,5 @@ struct CartItemListView: View{
 }
 
 #Preview {
-    CartItemListView()
+    CartItemListView(pantryManager: PantryManager())
 }
