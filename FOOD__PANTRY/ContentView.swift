@@ -69,40 +69,42 @@ struct ContentView: View {
             Text("Fruits")
             ScrollView(.horizontal) {
                 ForEach(pantryManager.listFruits) { fruit in
-                    VStack(spacing: 8) {
-                        Text(String(fruit.name))
-                        AsyncImage(url: URL(string: fruit.image)){ result in
-                                    result.image?
-                                        .resizable()
-                                        .scaledToFill()
-                                }
-                                .frame(width: 100, height: 100)
-                        HStack(spacing: 10) {
-                            Text("Stock: " + String(fruit.stock))
-                            Spacer()
-                                .frame(width: 4)
-                            Button(action: {
-                                if fruit.added == false {
-                                    fruit.quantity = 1
-                                    fruit.stock -= 1
-                                    pantryManager.cartItems.append(fruit)
-                                } else {
-                                    fruit.quantity = 0
-                                    fruit.stock += 1
-                                    pantryManager.cartItems.removeAll(where: { $0.name == fruit.name })
-                                }
-                                fruit.added = !(fruit.added)
-                            }) {
-                                Image(systemName: "plus.circle")
+                    HStack {
+                        VStack(spacing: 8) {
+                            Text(String(fruit.name))
+                            AsyncImage(url: URL(string: fruit.image)){ result in
+                                result.image?
+                                    .resizable()
+                                    .scaledToFill()
                             }
-                            .foregroundColor(fruit.added ? .gray : .blue)
-                            .background(fruit.added ? Color.gray.opacity(0.3) : .clear)
+                            .frame(width: 100, height: 100)
+                            HStack(spacing: 10) {
+                                Text("Stock: " + String(fruit.stock))
+                                Spacer()
+                                    .frame(width: 4)
+                                Button(action: {
+                                    if fruit.added == false {
+                                        fruit.quantity = 1
+                                        fruit.stock -= 1
+                                        pantryManager.cartItems.append(fruit)
+                                    } else {
+                                        fruit.quantity = 0
+                                        fruit.stock += 1
+                                        pantryManager.cartItems.removeAll(where: { $0.name == fruit.name })
+                                    }
+                                    fruit.added = !(fruit.added)
+                                }) {
+                                    Image(systemName: "plus.circle")
+                                }
+                                .foregroundColor(fruit.added ? .gray : .blue)
+                                .background(fruit.added ? Color.gray.opacity(0.3) : .clear)
+                            }
                         }
+                        .padding(6)
+                        .border(.gray, width: 1)
+                        .background(Color.white)
+                        .padding(8)
                     }
-                    .padding(6)
-                    .border(.gray, width: 1)
-                    .background(Color.white)
-                    .padding(8)
                 }
                 .padding(.top, 5)
             }
