@@ -87,7 +87,7 @@ struct VerifyInformationView: View {
                 Text("Verify Information".capitalized)
                     .font(.title)
                     .bold()
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
                     .padding(10)
                 Image(systemName: "person.crop.circle") // Bear icon placeholder
                     .font(.largeTitle)

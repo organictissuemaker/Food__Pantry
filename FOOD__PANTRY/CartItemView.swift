@@ -31,7 +31,8 @@ struct CartItemView: View{
     
     private var imageSection: some View{
         Circle()
-            .fill(Color.gray.opacity(0.7))
+            //.fill(Color.gray.opacity(0.7)
+            .fill(Color.white)
             .overlay(
                 AsyncImage(url: URL(string: cartItem.image)){
                     image in
