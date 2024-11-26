@@ -6,27 +6,23 @@
 //
 import Foundation
 import SwiftUI
-import SwiftData
 
-
-enum foodCategory: Codable {
-    case fruit
-    case veg
-    case dairy
-    case canned
-    case other
-}
-
-@Model
-class FoodItem: Identifiable {
+@Observable class FoodItem: Identifiable {
+    enum foodCategory {
+        case fruit
+        case veg
+        case dairy
+        case canned
+        case other
+    }
     
     var type: foodCategory
     var id = UUID()
     var name: String
-    @Attribute  var stock: Int
-    @Attribute  var quantity: Int
+    var stock: Int
+    var quantity: Int
     var image: String
-    @Attribute  var added: Bool
+    var added: Bool
     
     init(id: UUID = UUID(), name: String, stock: Int, image: String, type: foodCategory) {
         self.id = id
