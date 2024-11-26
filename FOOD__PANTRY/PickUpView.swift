@@ -23,8 +23,8 @@ struct PickUpView: View {
                     .frame(height: 10)
                 HStack {
                     Spacer()
-                    VStack(alignment: .leading, spacing: 10){
-                        Text("                  Schedule Pickup".capitalized)
+                    VStack(alignment: .leading, spacing: 0){
+                        Text("Schedule Pickup".capitalized)
                             .font(.title)
                             .bold()
                             .foregroundColor(.white)
