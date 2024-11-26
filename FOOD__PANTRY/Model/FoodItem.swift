@@ -17,7 +17,7 @@ enum foodCategory: Codable {
     case other
 }
 
-@Model
+// @Model
 class FoodItem: Identifiable {
     
     var type: foodCategory

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CartItemListView: View{
     @State var pantryManager : PantryManager
-    @Environment(\.modelContext) private var context
+    // @Environment(\.modelContext) private var context
     
     var body: some View{
         VStack {
@@ -18,7 +18,7 @@ struct CartItemListView: View{
                     headerView
                     ForEach (pantryManager.cartItems, id: \.id){
                         item in
-                        CartItemView(cartItem: item)
+                        CartItemView(pantryManager: $pantryManager, cartItem: item)
                     }
                 }
                 // .background(Color.blue.opacity(0.7))

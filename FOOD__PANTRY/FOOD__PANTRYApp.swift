@@ -26,7 +26,7 @@ struct FOOD__PANTRYApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView() //root view
-                .modelContainer(for: [PantryManager.self, FoodItem.self])
+                // .modelContainer(for: [PantryManager.self, FoodItem.self])
         }
         
     }
