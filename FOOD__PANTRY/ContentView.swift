@@ -51,7 +51,7 @@ struct ContentView: View {
                         NavigationLink(destination: CartItemListView(pantryManager: pantryManager), label: {
                             Label("Cart", systemImage: "cart.fill")})
                         Spacer()
-                        NavigationLink(destination: PickUpView(), label: {
+                        NavigationLink(destination: PickUpView(pantryManager: pantryManager), label: {
                             Label("Pickup", systemImage: "calendar.badge.clock")
                         })
                     }
@@ -273,8 +273,8 @@ struct ContentView: View {
                                         other.stock -= 1
                                         pantryManager.cartItems.append(other)
                                     } else {
+                                        other.stock = other.stock + other.quantity
                                         other.quantity = 0
-                                        other.stock += 1
                                         pantryManager.cartItems.removeAll(where: { $0.name == other.name })
                                     }
                                     other.added = !(other.added)

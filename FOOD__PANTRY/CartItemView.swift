@@ -8,11 +8,8 @@ import SwiftUI
 
 struct CartItemView: View{
     //@Environment(\.modelContext) private var context
-<<<<<<< HEAD
     @Binding var pantryManager: PantryManager
-=======
-    @Binding var pantryManager = PantryManager()
->>>>>>> 88954aa9608d3fe30ec7b0794c26477385c2d75c
+    
     var cartItem: FoodItem
     
     var body: some View{

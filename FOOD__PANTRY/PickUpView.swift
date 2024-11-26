@@ -11,10 +11,12 @@ import SwiftUI
 
 struct PickUpView: View {
     //@Environment(\.modelContext) private var context
+    @State var pantryManager : PantryManager
     @State var selectedDate: Date = Date()
     @State private var firstName = ""
     @State private var lastName = ""
     @State private var studentID = ""
+    @State private var notReady: Bool = false
     
     var body: some View {
         VStack {
@@ -22,15 +24,15 @@ struct PickUpView: View {
                 Spacer()
                     .frame(height: 10)
                 HStack {
-                    Spacer()
                     VStack(alignment: .leading, spacing: 0){
-                        Text("Schedule Pickup".capitalized)
+                        Text("            Schedule Pickup".capitalized)
                             .font(.title)
                             .bold()
                             .foregroundColor(.white)
                     }
-                    Spacer()
                 }
+                Spacer()
+                    .frame(height: 10)
                 VStack(alignment: .center, spacing: 0) {
                     DatePicker("Select Date", selection: $selectedDate, displayedComponents: [.date, .hourAndMinute])
                         .padding(.horizontal)
@@ -53,7 +55,7 @@ struct PickUpView: View {
             .padding([Edge.Set.leading, Edge.Set.trailing], 10)
             // .background(Color.blue.opacity(0.7))
             
-            VerifyInformationView(firstName: $firstName, lastName: $lastName, studentID: $studentID)
+            VerifyInformationView(pantryManager: $pantryManager, firstName: $firstName, lastName: $lastName, studentID: $studentID, notReady: $notReady)
             //                    .tabItem {
             //                        Image(systemName: "house.fill")
             //                        Text("Shop")
@@ -79,9 +81,11 @@ struct PickUpView: View {
 
 struct VerifyInformationView: View {
     //@Environment(\.modelContext) private var context
+    @Binding var pantryManager : PantryManager
     @Binding var firstName: String
     @Binding var lastName: String
     @Binding var studentID: String
+    @Binding var notReady: Bool
 
     var body: some View {
         VStack {
@@ -89,7 +93,7 @@ struct VerifyInformationView: View {
                 Text("Verify Information".capitalized)
                     .font(.title)
                     .bold()
-                    .foregroundColor(.black)
+                    .foregroundColor(.white)
                     .padding(10)
                 Image(systemName: "person.crop.circle") // Bear icon placeholder
                     .font(.largeTitle)
@@ -98,31 +102,47 @@ struct VerifyInformationView: View {
             VStack(alignment: .leading) {
                 TextField("First Name (e.g. Oski)", text: $firstName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .foregroundColor(.black)
 
                 TextField("Last Name (e.g. Bear)", text: $lastName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .foregroundColor(.black)
 
                 TextField("Cal Student ID (e.g. 3031234567)", text: $studentID)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .foregroundColor(.black)
                     //.keyboardType(.numberPad)
             }
             .padding([Edge.Set.leading, Edge.Set.trailing], 15)
             Spacer()
                 .frame(height: 25)
-
             HStack {
-                Spacer()
-                Text("Ready!")
-                    .bold()
-                    .foregroundColor(.green)
-                Spacer()
+                Button(action: {
+                    if firstName.count > 0 && lastName.count > 0 && studentID.count == 10 {
+                        firstName = ""
+                        lastName = ""
+                        studentID = ""
+                        pantryManager.cartItems.removeAll()
+                        notReady = false
+                    } else {
+                        notReady = true
+                    }
+                }) {
+                    Spacer()
+                    Text("Ready!")
+                        .bold()
+                        .foregroundColor(.green)
+                    Spacer()
+                }
                     // .frame(height: 15)
             }
             .padding(15)
             .background(Color.white)
             .cornerRadius(8)
             .padding(.horizontal)
-
+            Text(notReady ? "Please finish filling out your info first!" : "")
+                .bold()
+                .foregroundColor(.red)
             Spacer()
         }
         // .background(Color.blue.opacity(0.7))
@@ -154,5 +174,5 @@ struct VerifyInformationView: View {
 
 
 #Preview {
-    PickUpView()
+    PickUpView(pantryManager: PantryManager())
 }
