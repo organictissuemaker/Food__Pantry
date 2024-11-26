@@ -15,14 +15,20 @@ struct PickUpView: View {
     @State private var lastName = ""
     @State private var studentID = ""
     
-        var body: some View {
+    var body: some View {
+        VStack {
             VStack(alignment: .leading, spacing: 0) {
-                VStack(alignment: .leading, spacing: 10){
-                    Text("          Schedule Pickup:".capitalized)
-                        .font(.title)
-                        .bold()
-                        .foregroundColor(.white)
-                        .padding(10)
+                Spacer()
+                    .frame(height: 10)
+                HStack {
+                    Spacer()
+                    VStack(alignment: .leading, spacing: 10){
+                        Text("                  Schedule Pickup".capitalized)
+                            .font(.title)
+                            .bold()
+                            .foregroundColor(.white)
+                    }
+                    Spacer()
                 }
                 VStack(alignment: .center, spacing: 0) {
                     DatePicker("Select Date", selection: $selectedDate, displayedComponents: [.date, .hourAndMinute])
@@ -40,33 +46,34 @@ struct PickUpView: View {
                             .animation(.spring(), value: selectedDate)
                     }
                 }
-                Spacer()
+//                Spacer()
+//                    .frame(height: 15)
             }
-            .padding(10)
-            .background(Color.blue.opacity(0.7))
+            .padding([Edge.Set.leading, Edge.Set.trailing], 10)
+            // .background(Color.blue.opacity(0.7))
             
-            TabView {
-                // First Tab: Current Practice View
-                VerifyInformationView(firstName: $firstName, lastName: $lastName, studentID: $studentID)
-                    .tabItem {
-                        Image(systemName: "house.fill")
-                        Text("Shop")
-                    }
-
-                CartView()
-                    .tabItem {
-                        Image(systemName: "cart.fill")
-                        Text("Cart")
-                    }
-
-                PickupView()
-                    .tabItem {
-                        Image(systemName: "calendar.badge.clock")
-                        Text("Pickup")
-                    }
-            }
-            Spacer()
+            VerifyInformationView(firstName: $firstName, lastName: $lastName, studentID: $studentID)
+            //                    .tabItem {
+            //                        Image(systemName: "house.fill")
+            //                        Text("Shop")
+            //                    }
+            //
+            //                CartView()
+            //                    .tabItem {
+            //                        Image(systemName: "cart.fill")
+            //                        Text("Cart")
+            //                    }
+            //
+            //                PickupView()
+            //                    .tabItem {
+            //                        Image(systemName: "calendar.badge.clock")
+            //                        Text("Pickup")
+            //                    }
+            //
+            //            Spacer()
         }
+        .background(Color.blue.opacity(0.7))
+    }
 }
 
 struct VerifyInformationView: View {
@@ -76,26 +83,30 @@ struct VerifyInformationView: View {
 
     var body: some View {
         VStack {
-            Text("Verify Information")
-                .font(.headline)
-                .padding(.top)
-
-            Image(systemName: "person.crop.circle") // Bear icon placeholder
-                .font(.largeTitle)
-                .padding(.top)
+            HStack {
+                Text("Verify Information".capitalized)
+                    .font(.title)
+                    .bold()
+                    .foregroundColor(.white)
+                    .padding(10)
+                Image(systemName: "person.crop.circle") // Bear icon placeholder
+                    .font(.largeTitle)
+            }
 
             VStack(alignment: .leading) {
-                TextField("First Name e.g. Oski", text: $firstName)
+                TextField("First Name (e.g. Oski)", text: $firstName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
 
-                TextField("Last Name e.g. Bear", text: $lastName)
+                TextField("Last Name (e.g. Bear)", text: $lastName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
 
-                TextField("Cal Student ID e.g. 3031234567", text: $studentID)
+                TextField("Cal Student ID (e.g. 3031234567)", text: $studentID)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     //.keyboardType(.numberPad)
             }
-            .padding()
+            .padding([Edge.Set.leading, Edge.Set.trailing], 15)
+            Spacer()
+                .frame(height: 25)
 
             HStack {
                 Spacer()
@@ -103,40 +114,41 @@ struct VerifyInformationView: View {
                     .bold()
                     .foregroundColor(.green)
                 Spacer()
+                    // .frame(height: 15)
             }
-            .padding()
+            .padding(15)
             .background(Color.white)
             .cornerRadius(8)
             .padding(.horizontal)
 
             Spacer()
         }
-        .background(Color.blue.opacity(0.7))
+        // .background(Color.blue.opacity(0.7))
         .foregroundColor(.white)
     }
 }
 
-struct CartView: View {
-    var body: some View {
-        VStack {
-            Text("Cart Page")
-                .font(.largeTitle)
-                .padding()
-        }
-        .background(Color.green.opacity(0.2))
-    }
-}
-
-struct PickupView: View {
-    var body: some View {
-        VStack {
-            Text("Pickup Page")
-                .font(.largeTitle)
-                .padding()
-        }
-        .background(Color.orange.opacity(0.2))
-    }
-}
+//struct CartView: View {
+//    var body: some View {
+//        VStack {
+//            Text("Cart Page")
+//                .font(.largeTitle)
+//                .padding()
+//        }
+//        .background(Color.green.opacity(0.2))
+//    }
+//}
+//
+//struct PickupView: View {
+//    var body: some View {
+//        VStack {
+//            Text("Pickup Page")
+//                .font(.largeTitle)
+//                .padding()
+//        }
+//        .background(Color.orange.opacity(0.2))
+//    }
+//}
 
 
 #Preview {
