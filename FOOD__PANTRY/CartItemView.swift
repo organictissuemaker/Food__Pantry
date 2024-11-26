@@ -7,7 +7,9 @@
 import SwiftUI
 
 struct CartItemView: View{
+    @Environment(\.modelContext) private var context
     var cartItem: FoodItem
+    
     
     var body: some View{
         RoundedRectangle(cornerRadius: 10)

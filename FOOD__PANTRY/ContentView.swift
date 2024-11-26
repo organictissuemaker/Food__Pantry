@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-
+    @Environment(\.modelContext) private var context
     @State var pantryManager: PantryManager = PantryManager()
     
     var body: some View {
