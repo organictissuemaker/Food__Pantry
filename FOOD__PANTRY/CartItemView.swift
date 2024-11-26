@@ -94,5 +94,5 @@ struct CartItemView: View{
 }
 
 #Preview {
-    CartItemView(cartItem: FoodItem(name: "Broccoli", stock: 3, image: "https://www.shutterstock.com/image-photo/macro-photo-green-fresh-vegetable-600nw-2497091485.jpg", type: FoodItem.foodCategory.veg))
+    CartItemView(cartItem: PantryManager().cartItems[0])
 }
