@@ -26,8 +26,8 @@ struct PickUpView: View {
                     .frame(height: 10)
                 HStack {
                     Spacer()
-                    VStack(alignment: .leading, spacing: 10){
-                        Text("                  Schedule Pickup".capitalized)
+                    VStack(alignment: .leading, spacing: 0){
+                        Text("Schedule Pickup".capitalized)
                             .font(.title)
                             .bold()
                             .foregroundColor(.white)
@@ -95,7 +95,7 @@ struct VerifyInformationView: View {
                 Text("Verify Information".capitalized)
                     .font(.title)
                     .bold()
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
                     .padding(10)
                 Image(systemName: "person.crop.circle") // Bear icon placeholder
                     .font(.largeTitle)
