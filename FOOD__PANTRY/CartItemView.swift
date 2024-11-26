@@ -7,6 +7,11 @@
 import SwiftUI
 
 struct CartItemView: View{
+<<<<<<< HEAD
+    //@Environment(\.modelContext) private var context
+    @Binding var pantryManager: PantryManager
+=======
+>>>>>>> 66ecec2e558f970e825e7ebf4315f4feb51a60d9
     var cartItem: FoodItem
     
     var body: some View{
@@ -72,6 +77,9 @@ struct CartItemView: View{
                             cartItem.quantity -= 1
                             cartItem.stock += 1
                         }
+                        if (cartItem.quantity == 0){
+                            pantryManager.cartItems.removeAll(where: { $0.name == cartItem.name })
+                        }
                     }){
                         Image(systemName:
                                 "minus.square.fill"
@@ -95,5 +103,5 @@ struct CartItemView: View{
 }
 
 #Preview {
-    CartItemView(cartItem: PantryManager().cartItems[0])
+    CartItemView(pantryManager: ContentView().$pantryManager, cartItem: PantryManager().cartItems[0])
 }

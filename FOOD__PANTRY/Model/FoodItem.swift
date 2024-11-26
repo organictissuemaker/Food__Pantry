@@ -7,6 +7,19 @@
 import Foundation
 import SwiftUI
 
+<<<<<<< HEAD
+
+enum foodCategory: Codable {
+    case fruit
+    case veg
+    case dairy
+    case canned
+    case other
+}
+
+// @Model
+class FoodItem: Identifiable {
+=======
 @Observable class FoodItem: Identifiable {
     enum foodCategory {
         case fruit
@@ -15,6 +28,7 @@ import SwiftUI
         case canned
         case other
     }
+>>>>>>> 66ecec2e558f970e825e7ebf4315f4feb51a60d9
     
     var type: foodCategory
     var id = UUID()
