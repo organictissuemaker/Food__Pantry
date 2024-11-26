@@ -9,7 +9,11 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
+<<<<<<< HEAD
+    // @Environment(\.modelContext) private var context
+=======
 
+>>>>>>> 66ecec2e558f970e825e7ebf4315f4feb51a60d9
     @State var pantryManager: PantryManager = PantryManager()
     
     var body: some View {
