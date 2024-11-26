@@ -9,10 +9,7 @@ import SwiftUI
 
 struct CartItemListView: View{
     @State var pantryManager : PantryManager
-<<<<<<< HEAD
     // @Environment(\.modelContext) private var context
-=======
->>>>>>> 66ecec2e558f970e825e7ebf4315f4feb51a60d9
     
     var body: some View{
         VStack {

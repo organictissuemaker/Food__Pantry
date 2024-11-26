@@ -10,10 +10,7 @@ import SwiftUI
 
 
 struct PickUpView: View {
-<<<<<<< HEAD
     //@Environment(\.modelContext) private var context
-=======
->>>>>>> 66ecec2e558f970e825e7ebf4315f4feb51a60d9
     @State var selectedDate: Date = Date()
     @State private var firstName = ""
     @State private var lastName = ""
@@ -81,10 +78,7 @@ struct PickUpView: View {
 }
 
 struct VerifyInformationView: View {
-<<<<<<< HEAD
     //@Environment(\.modelContext) private var context
-=======
->>>>>>> 66ecec2e558f970e825e7ebf4315f4feb51a60d9
     @Binding var firstName: String
     @Binding var lastName: String
     @Binding var studentID: String

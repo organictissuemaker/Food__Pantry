@@ -7,11 +7,8 @@
 import SwiftUI
 
 struct CartItemView: View{
-<<<<<<< HEAD
     //@Environment(\.modelContext) private var context
     @Binding var pantryManager: PantryManager
-=======
->>>>>>> 66ecec2e558f970e825e7ebf4315f4feb51a60d9
     var cartItem: FoodItem
     
     var body: some View{
@@ -78,6 +75,7 @@ struct CartItemView: View{
                             cartItem.stock += 1
                         }
                         if (cartItem.quantity == 0){
+                            cartItem.added = false
                             pantryManager.cartItems.removeAll(where: { $0.name == cartItem.name })
                         }
                     }){
@@ -103,5 +101,5 @@ struct CartItemView: View{
 }
 
 #Preview {
-    CartItemView(pantryManager: ContentView().$pantryManager, cartItem: PantryManager().cartItems[0])
+    CartItemView(pantryManager: ContentView().$pantryManager, cartItem: FoodItem(name: "Broccoli", stock: 3, image: "https://www.shutterstock.com/image-photo/macro-photo-green-fresh-vegetable-600nw-2497091485.jpg", type: FoodItem.foodCategory.veg))
 }
