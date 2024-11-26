@@ -7,11 +7,8 @@
 import SwiftUI
 
 struct CartItemView: View{
-<<<<<<< HEAD
     //@Environment(\.modelContext) private var context
-    @Binding var pantryManager: PantryManager
-=======
->>>>>>> 66ecec2e558f970e825e7ebf4315f4feb51a60d9
+    @Binding var pantryManager = PantryManager()
     var cartItem: FoodItem
     
     var body: some View{
