@@ -18,7 +18,7 @@ struct PickUpView: View {
         var body: some View {
             VStack(alignment: .leading, spacing: 0) {
                 VStack(alignment: .leading, spacing: 10){
-                    Text("Schedule Pickup:".capitalized)
+                    Text("          Schedule Pickup:".capitalized)
                         .font(.title)
                         .bold()
                         .foregroundColor(.white)
