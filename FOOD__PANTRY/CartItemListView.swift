@@ -11,12 +11,18 @@ struct CartItemListView: View{
     @State var pantryManager : PantryManager
     
     var body: some View{
-        VStack{
-            headerView
-            List(pantryManager.cartItems, id: \.id){
-                item in
-                CartItemView(cartItem: item)
+        VStack {
+            ScrollView(.vertical){
+                VStack{
+                    headerView
+                    ForEach (pantryManager.cartItems, id: \.id){
+                        item in
+                        CartItemView(cartItem: item)
+                    }
+                }
+                // .background(Color.blue.opacity(0.7))
             }
+            Spacer()
         }
         .background(Color.blue.opacity(0.7))
     }
