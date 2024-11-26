@@ -42,13 +42,15 @@ struct ContentView: View {
                     otherView
                 }
                 VStack {
-                    HStack(spacing: 60) {
+                    HStack{
                         HStack {
                             Image(systemName: "house.fill").foregroundColor(Color(red: 0.1, green: 0.2, blue: 1.0))
                             Text("Home").foregroundColor(Color(red: 0.1, green: 0.2, blue: 1.0))
                         }
+                        Spacer()
                         NavigationLink(destination: CartItemListView(pantryManager: pantryManager), label: {
                             Label("Cart", systemImage: "cart.fill")})
+                        Spacer()
                         NavigationLink(destination: PickUpView(), label: {
                             Label("Pickup", systemImage: "calendar.badge.clock")
                         })
@@ -56,7 +58,7 @@ struct ContentView: View {
                     
                 }
                 .padding(30)
-                .background(.yellow)
+                .background(Color.yellow)
                 
             }
             .background(Color.blue.opacity(0.8))
