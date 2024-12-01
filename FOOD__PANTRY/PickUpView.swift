@@ -18,6 +18,12 @@ struct PickUpView: View {
     @State private var studentID = ""
     @State private var notReady: Bool = false
     
+    func isWeekend(date: Date) -> Bool {
+            let calendar = Calendar.current
+            let weekday = calendar.component(.weekday, from: date)
+            return weekday == 1 || weekday == 7 // 1 = Sunday, 7 = Saturday
+        }
+    
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 0) {
@@ -39,6 +45,11 @@ struct PickUpView: View {
                         .datePickerStyle(.graphical)
                         .background(Color.white)
                         .padding(10)
+                        .onChange(of: selectedDate) { newDate in
+                            if isWeekend(date: newDate) {
+                                selectedDate = Date()}
+                        }
+                    
                     HStack() {
                         Text(selectedDate.formatted(date: .abbreviated, time: .shortened))
                             .font(.system(size: 16))
