@@ -12,7 +12,7 @@ import SwiftUI
 struct PickUpView: View {
     //@Environment(\.modelContext) private var context
     @State var pantryManager : PantryManager
-    @State var orderNum: OrderNum
+    @State var orderNum: [OrderNum]
     
     @State var selectedDate: Date = Date()
     @State private var firstName = ""
@@ -95,7 +95,7 @@ struct PickUpView: View {
 struct VerifyInformationView: View {
     //@Environment(\.modelContext) private var context
     @Binding var pantryManager : PantryManager
-    @Binding var orderNum: OrderNum
+    @Binding var orderNum: [OrderNum]
     @Binding var firstName: String
     @Binding var lastName: String
     @Binding var studentID: String
@@ -137,14 +137,14 @@ struct VerifyInformationView: View {
                         lastName = ""
                         studentID = ""
                         pantryManager.cartItems.removeAll()
-                        orderNum.num += 1
+                        // TODO: update orderNum list (1 elem) by delete/insert
                         notReady = false
                     } else {
                         notReady = true
                     }
                 }) {
                     Spacer()
-                    Text("Ready! (Order #" + String(orderNum.num) + ")")
+                    Text("Ready! (Order #" + String(orderNum[0].num) + ")")
                         .bold()
                         .foregroundColor(.green)
                     Spacer()
@@ -189,5 +189,5 @@ struct VerifyInformationView: View {
 
 
 #Preview {
-    PickUpView(pantryManager: PantryManager(), orderNum: OrderNum(num: 0))
+    PickUpView(pantryManager: PantryManager(), orderNum: [OrderNum(num: 0)])
 }

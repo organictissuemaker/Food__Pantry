@@ -11,7 +11,8 @@ import SwiftData
 struct ContentView: View {
     // @Environment(\.modelContext) private var context
     @State var pantryManager: PantryManager = PantryManager()
-    @State var orderNum: OrderNum = OrderNum(num: 0) // TODO: @Query
+    @State var orderNum: [OrderNum] = [OrderNum(num: 0)] // TODO: @Query
+    //every successful button click in pickup view --> delete old first elem of orderNum, insert new elem to orderNum w/ updated .num
     
     var body: some View {
         NavigationStack {
