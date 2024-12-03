@@ -7,16 +7,26 @@
 
 // hihi this is karen commenting
 import SwiftUI
+import SwiftData
 
 
 struct PickUpView: View {
-    //@Environment(\.modelContext) private var context
+    @Environment(\.modelContext) private var context
+    
     @State var pantryManager : PantryManager
+    @Query var orderNum: [OrderNum] // TODO: check if @Query
+    
     @State var selectedDate: Date = Date()
     @State private var firstName = ""
     @State private var lastName = ""
     @State private var studentID = ""
     @State private var notReady: Bool = false
+    
+    func isWeekend(date: Date) -> Bool {
+            let calendar = Calendar.current
+            let weekday = calendar.component(.weekday, from: date)
+            return weekday == 1 || weekday == 7 // 1 = Sunday, 7 = Saturday
+        }
     
     var body: some View {
         VStack {
@@ -39,6 +49,11 @@ struct PickUpView: View {
                         .datePickerStyle(.graphical)
                         .background(Color.white)
                         .padding(10)
+                        .onChange(of: selectedDate) { newDate in
+                            if isWeekend(date: newDate) {
+                                selectedDate = Date()}
+                        }
+                    
                     HStack() {
                         Text(selectedDate.formatted(date: .abbreviated, time: .shortened))
                             .font(.system(size: 16))
@@ -80,12 +95,15 @@ struct PickUpView: View {
 }
 
 struct VerifyInformationView: View {
-    //@Environment(\.modelContext) private var context
+    @Environment(\.modelContext) private var context
+    
     @Binding var pantryManager : PantryManager
+    @Query var orderNum: [OrderNum] // // TODO: check if @Query
     @Binding var firstName: String
     @Binding var lastName: String
     @Binding var studentID: String
     @Binding var notReady: Bool
+    var number: String = "0"
 
     var body: some View {
         VStack {
@@ -122,14 +140,26 @@ struct VerifyInformationView: View {
                         firstName = ""
                         lastName = ""
                         studentID = ""
+                        for item in pantryManager.cartItems {
+                            item.added = false
+                        }
                         pantryManager.cartItems.removeAll()
+                        let newOrderNum = OrderNum(num: getOrderNum() + 1) // FIX
+                        
+                        context.insert(newOrderNum)
+                        do {
+                            try context.save()
+                            // context.delete(orderNum[0]) // FIX
+                        } catch {
+                            print("error")
+                        }
                         notReady = false
                     } else {
                         notReady = true
                     }
                 }) {
                     Spacer()
-                    Text("Ready!")
+                    Text("Ready! (Order #" + String(getOrderNum()) + ")") // String(orderNum[0].num)
                         .bold()
                         .foregroundColor(.green)
                     Spacer()
@@ -147,6 +177,20 @@ struct VerifyInformationView: View {
         }
         // .background(Color.blue.opacity(0.7))
         .foregroundColor(.white)
+    }
+    
+    private func getOrderNum() -> Int {
+        let fetchDescriptor = FetchDescriptor<OrderNum>()
+        var num: Int = 0
+        do {
+            let listOrderNums = try context.fetch(fetchDescriptor)
+            for thing in listOrderNums {
+                num += 1
+            }
+        } catch {
+            num = 5
+            }
+        return num
     }
 }
 
@@ -173,6 +217,6 @@ struct VerifyInformationView: View {
 //}
 
 
-#Preview {
-    PickUpView(pantryManager: PantryManager())
-}
+//#Preview {
+//    PickUpView(pantryManager: PantryManager(), orderNum: [OrderNum(num: 0)])
+//}

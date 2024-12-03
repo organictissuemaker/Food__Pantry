@@ -9,8 +9,13 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    // @Environment(\.modelContext) private var context
+    @Environment(\.modelContext) private var context
     @State var pantryManager: PantryManager = PantryManager()
+    @Query var orderNum: [OrderNum] // = [OrderNum(num: 0)]
+    //every successful button click in pickup view --> delete old first elem of orderNum, insert new elem to orderNum w/ updated .num
+//    // CHANGED
+//    let num = OrderNum(num: 0)
+//    context.insert(num)
     
     var body: some View {
         NavigationStack {
