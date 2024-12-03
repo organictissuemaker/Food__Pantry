@@ -11,6 +11,7 @@ import SwiftData
 struct ContentView: View {
     // @Environment(\.modelContext) private var context
     @State var pantryManager: PantryManager = PantryManager()
+    @State var orderNum: OrderNum = OrderNum(num: 0) // TODO: @Query
     
     var body: some View {
         NavigationStack {
@@ -51,7 +52,7 @@ struct ContentView: View {
                         NavigationLink(destination: CartItemListView(pantryManager: pantryManager), label: {
                             Label("Cart", systemImage: "cart.fill")})
                         Spacer()
-                        NavigationLink(destination: PickUpView(pantryManager: pantryManager), label: {
+                        NavigationLink(destination: PickUpView(pantryManager: pantryManager, orderNum: orderNum), label: {
                             Label("Pickup", systemImage: "calendar.badge.clock")
                         })
                     }

@@ -26,6 +26,7 @@ struct FOOD__PANTRYApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView() //root view
+                // TODO: .modelContainer(for: [OrderNum.self])
                 // .modelContainer(for: [PantryManager.self, FoodItem.self])
         }
         .modelContainer(sharedModelContainer)

@@ -12,6 +12,8 @@ import SwiftUI
 struct PickUpView: View {
     //@Environment(\.modelContext) private var context
     @State var pantryManager : PantryManager
+    @State var orderNum: OrderNum
+    
     @State var selectedDate: Date = Date()
     @State private var firstName = ""
     @State private var lastName = ""
@@ -66,7 +68,7 @@ struct PickUpView: View {
             .padding([Edge.Set.leading, Edge.Set.trailing], 10)
             // .background(Color.blue.opacity(0.7))
             
-            VerifyInformationView(pantryManager: $pantryManager, firstName: $firstName, lastName: $lastName, studentID: $studentID, notReady: $notReady)
+            VerifyInformationView(pantryManager: $pantryManager, orderNum: $orderNum, firstName: $firstName, lastName: $lastName, studentID: $studentID, notReady: $notReady)
             //                    .tabItem {
             //                        Image(systemName: "house.fill")
             //                        Text("Shop")
@@ -93,6 +95,7 @@ struct PickUpView: View {
 struct VerifyInformationView: View {
     //@Environment(\.modelContext) private var context
     @Binding var pantryManager : PantryManager
+    @Binding var orderNum: OrderNum
     @Binding var firstName: String
     @Binding var lastName: String
     @Binding var studentID: String
@@ -134,13 +137,14 @@ struct VerifyInformationView: View {
                         lastName = ""
                         studentID = ""
                         pantryManager.cartItems.removeAll()
+                        orderNum.num += 1
                         notReady = false
                     } else {
                         notReady = true
                     }
                 }) {
                     Spacer()
-                    Text("Ready!")
+                    Text("Ready! (Order #" + String(orderNum.num) + ")")
                         .bold()
                         .foregroundColor(.green)
                     Spacer()
@@ -185,5 +189,5 @@ struct VerifyInformationView: View {
 
 
 #Preview {
-    PickUpView(pantryManager: PantryManager())
+    PickUpView(pantryManager: PantryManager(), orderNum: OrderNum(num: 0))
 }
