@@ -9,10 +9,13 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    // @Environment(\.modelContext) private var context
+    @Environment(\.modelContext) private var context
     @State var pantryManager: PantryManager = PantryManager()
-    @State var orderNum: [OrderNum] = [OrderNum(num: 0)] // TODO: @Query
+    @Query var orderNum: [OrderNum] // = [OrderNum(num: 0)]
     //every successful button click in pickup view --> delete old first elem of orderNum, insert new elem to orderNum w/ updated .num
+//    // CHANGED
+//    let num = OrderNum(num: 0)
+//    context.insert(num)
     
     var body: some View {
         NavigationStack {
@@ -53,7 +56,7 @@ struct ContentView: View {
                         NavigationLink(destination: CartItemListView(pantryManager: pantryManager), label: {
                             Label("Cart", systemImage: "cart.fill")})
                         Spacer()
-                        NavigationLink(destination: PickUpView(pantryManager: pantryManager, orderNum: orderNum), label: {
+                        NavigationLink(destination: PickUpView(pantryManager: pantryManager), label: {
                             Label("Pickup", systemImage: "calendar.badge.clock")
                         })
                     }

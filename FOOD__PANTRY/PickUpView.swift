@@ -7,12 +7,14 @@
 
 // hihi this is karen commenting
 import SwiftUI
+import SwiftData
 
 
 struct PickUpView: View {
-    //@Environment(\.modelContext) private var context
+    @Environment(\.modelContext) private var context
+    
     @State var pantryManager : PantryManager
-    @State var orderNum: [OrderNum]
+    @Query var orderNum: [OrderNum] // TODO: check if @Query
     
     @State var selectedDate: Date = Date()
     @State private var firstName = ""
@@ -68,7 +70,7 @@ struct PickUpView: View {
             .padding([Edge.Set.leading, Edge.Set.trailing], 10)
             // .background(Color.blue.opacity(0.7))
             
-            VerifyInformationView(pantryManager: $pantryManager, orderNum: $orderNum, firstName: $firstName, lastName: $lastName, studentID: $studentID, notReady: $notReady)
+            VerifyInformationView(pantryManager: $pantryManager, firstName: $firstName, lastName: $lastName, studentID: $studentID, notReady: $notReady)
             //                    .tabItem {
             //                        Image(systemName: "house.fill")
             //                        Text("Shop")
@@ -93,13 +95,15 @@ struct PickUpView: View {
 }
 
 struct VerifyInformationView: View {
-    //@Environment(\.modelContext) private var context
+    @Environment(\.modelContext) private var context
+    
     @Binding var pantryManager : PantryManager
-    @Binding var orderNum: [OrderNum]
+    @Query var orderNum: [OrderNum] // // TODO: check if @Query
     @Binding var firstName: String
     @Binding var lastName: String
     @Binding var studentID: String
     @Binding var notReady: Bool
+    var number: String = "0"
 
     var body: some View {
         VStack {
@@ -136,15 +140,26 @@ struct VerifyInformationView: View {
                         firstName = ""
                         lastName = ""
                         studentID = ""
+                        for item in pantryManager.cartItems {
+                            item.added = false
+                        }
                         pantryManager.cartItems.removeAll()
-                        // TODO: update orderNum list (1 elem) by delete/insert
+                        let newOrderNum = OrderNum(num: getOrderNum() + 1) // FIX
+                        
+                        context.insert(newOrderNum)
+                        do {
+                            try context.save()
+                            // context.delete(orderNum[0]) // FIX
+                        } catch {
+                            print("error")
+                        }
                         notReady = false
                     } else {
                         notReady = true
                     }
                 }) {
                     Spacer()
-                    Text("Ready! (Order #" + String(orderNum[0].num) + ")")
+                    Text("Ready! (Order #" + String(getOrderNum()) + ")") // String(orderNum[0].num)
                         .bold()
                         .foregroundColor(.green)
                     Spacer()
@@ -162,6 +177,20 @@ struct VerifyInformationView: View {
         }
         // .background(Color.blue.opacity(0.7))
         .foregroundColor(.white)
+    }
+    
+    private func getOrderNum() -> Int {
+        let fetchDescriptor = FetchDescriptor<OrderNum>()
+        var num: Int = 0
+        do {
+            let listOrderNums = try context.fetch(fetchDescriptor)
+            for thing in listOrderNums {
+                num += 1
+            }
+        } catch {
+            num = 5
+            }
+        return num
     }
 }
 
@@ -188,6 +217,6 @@ struct VerifyInformationView: View {
 //}
 
 
-#Preview {
-    PickUpView(pantryManager: PantryManager(), orderNum: [OrderNum(num: 0)])
-}
+//#Preview {
+//    PickUpView(pantryManager: PantryManager(), orderNum: [OrderNum(num: 0)])
+//}

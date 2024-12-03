@@ -7,11 +7,11 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
-// TODO: @Model
-@Observable class OrderNum: Identifiable {
+@Model // CHANGED
+class OrderNum: Identifiable {
     
-    // TODO: @Environment(\.modelContext) private var context
     var num: Int
     var id = UUID()
     
