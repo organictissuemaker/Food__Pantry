@@ -30,6 +30,12 @@ import SwiftUI
     }
     
     func fillLists() -> Void {
+        listDairy = []
+        listCans = []
+        listVeg = []
+        listFruits = []
+        listOther = []
+        cartItems = []
         for item in pantryItems {
             // put in corresponding list
             if (item.type == FoodItem.foodCategory.veg) {

@@ -142,6 +142,10 @@ struct VerifyInformationView: View {
                         studentID = ""
                         for item in pantryManager.cartItems {
                             item.added = false
+                            if item.stock == 0 {
+                                pantryManager.pantryItems.removeAll(where: { $0.name == item.name })
+                                pantryManager.fillLists()
+                            }
                         }
                         pantryManager.cartItems.removeAll()
                         let newOrderNum = OrderNum(num: getOrderNum() + 1) // FIX
